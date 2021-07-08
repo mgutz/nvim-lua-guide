@@ -1033,6 +1033,19 @@ echo g:lua_false
 " v:false
 ```
 
+### Variable Arguments
+
+Variable arguments `...`  do not work as expected with `nil` values. In general, DO NOT use `ipairs({...})` unless you are 100% certain there are no `nil` values. Iterating with `{...}` stop at first `nil` value. Proper way:
+
+```lua
+local function foo(...)
+    for i = 1, select('#', ...), 1 do
+        local arg = select(1, ...)
+        -- do something with arg which is not a hidden keyword in neovim's lua
+    end
+end
+```
+
 ### Setting up linters/language servers
 
 If you're using linters and/or language servers to get diagnostics and autocompletion for Lua projects, you may have to configure Neovim-specific settings for them. Here are a few recommended settings for popular tools:
