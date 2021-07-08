@@ -1035,12 +1035,12 @@ echo g:lua_false
 
 ### Variable Arguments
 
-Variable arguments `...`  do not work as expected with `nil` values. In general, DO NOT use `ipairs({...})` unless you are 100% certain there are no `nil` values. Iterating with `{...}` stop at first `nil` value. Proper way:
+Variable arguments `...`  do not work as expected with `nil` values. In general, DO NOT use `ipairs({...})` unless you are 100% certain there are no `nil` values. Iterating with `{...}` stops at first `nil` value. Proper way:
 
 ```lua
 local function foo(...)
     for i = 1, select('#', ...), 1 do
-        local arg = select(1, ...)
+        local arg = select(i, ...)
         -- do something with arg which is not a hidden keyword in neovim's lua
     end
 end
